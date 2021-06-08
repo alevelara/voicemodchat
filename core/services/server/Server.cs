@@ -12,7 +12,6 @@ namespace voicemodchat.core.services.server
 {
     public class Server : IServer
     {
-
         private string _ipAddress;
         private IWebSocketConnection _currentConnection;
         private WebSocketServer _webSocketServer;
@@ -46,12 +45,14 @@ namespace voicemodchat.core.services.server
                     connection.OnOpen = () =>
                         {
                             Console.WriteLine("Open!");
+                            _currentConnection = connection;
                             Connections.Add(connection);
                         };
                     connection.OnClose = () =>
                         {
-                            Console.WriteLine("Close!");
+                            Console.WriteLine("Close!");                            
                             Connections.Remove(connection);
+                            CloseCurrentConnection(connection);
                         };
                     connection.OnMessage = message =>
                         {
@@ -60,10 +61,9 @@ namespace voicemodchat.core.services.server
                         };
                     connection.OnError = (Exception exception) =>
                         {
-                            Console.WriteLine(exception.Message);
+                            Console.WriteLine(exception.Message);                            
+                            CloseCurrentConnection(connection);
                             Connections.Clear();
-                            connection.Close();
-                            this.Dispose();
                         };
             });
         }
@@ -71,6 +71,12 @@ namespace voicemodchat.core.services.server
         public void Stop()
         {
             Connections.Clear();
+            this.Dispose();
+        }
+
+        private void CloseCurrentConnection(IWebSocketConnection connection) {            
+            _currentConnection = null;
+            connection.Close();
             this.Dispose();
         }
     }
