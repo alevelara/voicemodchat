@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "eOvAahzrkdvOuHUGYzTb1fdh05ziRcaIl64GaPcXDP5K6OeYT6/nBBGzSusOwZJ9R/cbiDVXaSR9eYGt15dBhQ==",
+  "dgSpecHash": "D/uIcJ56W5f3iinSNp8oEgkLapbUjY62mlLzvqBVhNAfHgTXwvSWGCKP3X37spinLfAo3EXrb3whiTEXdTUtqQ==",
   "success": true,
   "projectFilePath": "D:\\Proyectos\\voicemodtest\\voicemodchat\\voicemodchat.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Alejandro\\.nuget\\packages\\autofac\\6.2.0\\autofac.6.2.0.nupkg.sha512",
+    "C:\\Users\\Alejandro\\.nuget\\packages\\fleck\\1.2.0\\fleck.1.2.0.nupkg.sha512",
+    "C:\\Users\\Alejandro\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.1\\system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512"
+  ],
   "logs": []
 }
