@@ -13,13 +13,15 @@ namespace voicemodchat.core.services.server
     public class Server : IServer
     {
         private string _ipAddress;
-        private IWebSocketConnection _currentConnection;
         private WebSocketServer _webSocketServer;
+        
+        public IWebSocketConnection CurrentConnection { get; set; }                         
         public List<IWebSocketConnection> Connections { get; set; }
                 
         public Server(string IpAddress)
         {
             _ipAddress = IpAddress;
+            Connections = new List<IWebSocketConnection>();
         }
 
         public void Dispose()
@@ -29,12 +31,12 @@ namespace voicemodchat.core.services.server
 
         public Task Ping()
         {
-            return _currentConnection.SendPing(Constants.PING.ToByteArray());
+            return CurrentConnection.SendPing(Constants.PING.ToByteArray());
         }
 
         public Task Pong()
         {
-            return _currentConnection.SendPong(Constants.PONG.ToByteArray());
+            return CurrentConnection.SendPong(Constants.PONG.ToByteArray());
         }
         
         public void Start()
@@ -44,8 +46,8 @@ namespace voicemodchat.core.services.server
             {
                     connection.OnOpen = () =>
                         {
-                            Console.WriteLine("Open!");
-                            _currentConnection = connection;
+                            Log.Info("New User connected to the server");
+                            CurrentConnection = connection;
                             Connections.Add(connection);
                         };
                     connection.OnClose = () =>
@@ -75,7 +77,7 @@ namespace voicemodchat.core.services.server
         }
 
         private void CloseCurrentConnection(IWebSocketConnection connection) {            
-            _currentConnection = null;
+            CurrentConnection = null;
             connection.Close();
             this.Dispose();
         }

@@ -9,7 +9,7 @@ namespace voicemodchat.core.utils.extensions
             return System.Text.Encoding.ASCII.GetBytes(str);
         }
 
-        public static bool TryParsetoUshort(this string str, out ushort port) 
+        public static bool TryParseToUshort(this string str, out ushort port) 
         {
             return ushort.TryParse(str, out port);
         }

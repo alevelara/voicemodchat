@@ -27,12 +27,9 @@ namespace voicemodchat.core.repositories.dependencies
             Container = _builder.Build();            
         }
 
-        public static TInterface GetDependency<TInterface>() where TInterface: class
-        {
-            using(var scope = Container.BeginLifetimeScope())
-            {
-                return scope.Resolve<TInterface>();
-            }
+        public static TInterface ResolveDependency<TInterface>(this IContainer container) where TInterface: class {
+            return container.Resolve<TInterface>();
         }
+       
     }
 }
